@@ -52,4 +52,5 @@ public class userEntity {
     public String getDateofbirth(){return this.dateofbirth;}
     public String getActive(){return this.active;}
 
+
 }
