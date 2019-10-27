@@ -7,11 +7,11 @@ Options:
 * POST
     * /create - Creating new user, requires body type:  
         {  
-            <space><space>"login" : "Your_Login",  
-            <space><space>"firstname" : "Your_First_Name",  
-            <space><space>"lastname" : "Your_Last_Name",  
-            <space><space>"dateofbirth" : "YYYY.MM.DD",  
-            <space><space>"active" : "true/false"  
+            &nbsp;&nbsp;&nbsp;&nbsp;"login" : "Your_Login",  
+            &nbsp;&nbsp;&nbsp;&nbsp;"firstname" : "Your_First_Name",  
+            &nbsp;&nbsp;&nbsp;&nbsp;"lastname" : "Your_Last_Name",  
+            &nbsp;&nbsp;&nbsp;&nbsp;"dateofbirth" : "YYYY.MM.DD",  
+            &nbsp;&nbsp;&nbsp;&nbsp;"active" : "true/false"  
          }
      * /update/{login} - Updating existing user, requires body as above
 * GET
