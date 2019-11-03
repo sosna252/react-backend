@@ -24,7 +24,7 @@ public class controller {
     public ResponseEntity<userEntity> create(@RequestBody userEntity newUser){
         if(repo.findByLogin(newUser.getLogin())==null)
             return new ResponseEntity<>(repo.save(newUser), HttpStatus.OK);
-        throw new WrongDataException(String.format("User with login [%s] already exists.", newUser.getLogin()));
+        throw new WrongDataException(String.format("User with login [%s] already exists.", newUser.getLogin()), 25);
     }
 
     @GetMapping("/login/{login}")
@@ -38,53 +38,24 @@ public class controller {
         return "The user have been already created";
     }
 
-    @GetMapping("/retrive/{login}")
-    @SuppressWarnings("unchecked")
-    public <T> T retrive(@PathVariable String login, HttpServletResponse res) {
-        userEntity user = repo.findByLogin(login);
-        if(user != null)
-            return (T) (userEntity) user;
-
-        response = res;
-        response.setStatus(418);
-        return (T) (String)"There is no user with this login";
-
+    @GetMapping("/user/{login}")                                                                     //The same as above "/login/{login}", but i can't see the difference between tasks
+    public ResponseEntity<userEntity> retrive(@PathVariable String login) {
+        return new ResponseEntity<>(service.checkUser(login, 43), HttpStatus.OK);
     }
 
-    @PostMapping("/update/{login}")
-    public String update(@PathVariable String login, @RequestBody userEntity newUser, HttpServletResponse res) {
-        userEntity user = repo.findByLogin(login);
-        if(user != null)
-        {
-            userEntity user2 = repo.findByLogin(newUser.getLogin());
-            if(user2==null)
-                user.setLogin(newUser.getLogin());
-            else
-                return "This login is alredy taken";
-            user.setFirstname(newUser.getFirstname());
-            user.setLastname(newUser.getLastname());
-            user.setDateofbirth(newUser.getDateofbirth());
-            user.setActive(newUser.getActive());
-            repo.save(user);
-            return "User updated";
-        }
-        response = res;
-        response.setStatus(418);
-        return "There is no user with this login";
+    @PutMapping("/{login}")
+    public ResponseEntity<userEntity> update(@PathVariable String login, @RequestBody userEntity newUser) {
+        userEntity user = service.checkUser(login, 37);
+        if(repo.findByLogin(newUser.getLogin())!=null)
+            throw new WrongDataException(String.format("User with login [%s] already exists.", newUser.getLogin()), 49);
+        newUser.setId(user.getId());
+        return new ResponseEntity<>(repo.save(newUser), HttpStatus.OK);
     }
 
-
-    @GetMapping("/delete/{login}")
-    public String delete(@PathVariable String login, HttpServletResponse res) {
-        userEntity user = repo.findByLogin(login);
-        if(user != null)
-        {
-            repo.delete(user);
-            return "User deleted";
-        }
-        response = res;
-        response.setStatus(418);
-        return "There is no user with this login";
+    @DeleteMapping("/{login}")
+    public ResponseEntity<String> delete(@PathVariable String login) {
+        repo.delete(service.checkUser(login, 57));
+        return new ResponseEntity<>("User Deleted", HttpStatus.OK);
     }
 
 }

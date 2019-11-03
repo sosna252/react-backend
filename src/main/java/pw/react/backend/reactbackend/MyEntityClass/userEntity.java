@@ -40,6 +40,7 @@ public class userEntity {
         this.active=active;
     }
 
+    public void setId(int id){this.id=id;}
     public void setLogin(String login){this.login=login;}
     public void setFirstname(String firstname){this.firstname=firstname;}
     public void setLastname(String lastname){this.lastname=lastname;}
