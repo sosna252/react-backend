@@ -8,7 +8,7 @@ public class userEntity {
 
     @Column(name = "id")
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     @Column(name = "login")
@@ -26,7 +26,8 @@ public class userEntity {
     @Column(name = "active")
     private String active;
 
-    public userEntity(){}
+    public userEntity()
+    {this.id = null;}
     public userEntity(Integer id)
     {this.id=id;}
     public userEntity(String login, String firstname, String lastname, String dateofbirth, String active)
