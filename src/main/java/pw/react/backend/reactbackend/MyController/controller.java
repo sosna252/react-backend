@@ -23,13 +23,13 @@ public class controller {
     @PostMapping("")
     public ResponseEntity<userEntity> create(@RequestBody userEntity newUser){
         if(repo.findByLogin(newUser.getLogin())==null)
-            return new ResponseEntity<userEntity>(repo.save(newUser), HttpStatus.OK );
+            return new ResponseEntity<>(repo.save(newUser), HttpStatus.OK);
         throw new WrongDataException(String.format("User with login [%s] already exists.", newUser.getLogin()));
     }
 
     @GetMapping("/login/{login}")
-    public userEntity findByLogin(@PathVariable String login) {
-        return service.checkUser(login, 32);
+    public ResponseEntity<userEntity> findByLogin(@PathVariable String login) {
+        return new ResponseEntity<>(service.checkUser(login, 32), HttpStatus.OK);
     }
 
     @GetMapping("/{login}")
