@@ -10,6 +10,11 @@ public class MyServicee {
     @Autowired
     private userRepository repo;
 
+    @Autowired
+    public MyServicee(userRepository userRepository) {
+        repo = userRepository;
+    }
+
     public userEntity checkUser(String login, int line) {
         userEntity user = repo.findByLogin(login);
         if(user!=null)

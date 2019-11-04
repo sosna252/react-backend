@@ -20,6 +20,12 @@ public class controller {
     MyServicee service;
     HttpServletResponse response;
 
+    public controller(userRepository ur, MyServicee ser)
+    {
+        this.repo=ur;
+        this.service = ser;
+    }
+
     @PostMapping("")
     public ResponseEntity<userEntity> create(@RequestBody userEntity newUser){
         if(repo.findByLogin(newUser.getLogin())==null)
@@ -28,7 +34,7 @@ public class controller {
     }
 
     @GetMapping("/login/{login}")
-    public ResponseEntity<userEntity> findByLogin(@PathVariable String login) {
+    public ResponseEntity<userEntity> ByLogin(@PathVariable String login) {
         return new ResponseEntity<>(service.checkUser(login, 32), HttpStatus.OK);
     }
 
