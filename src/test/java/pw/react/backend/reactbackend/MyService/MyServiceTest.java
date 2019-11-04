@@ -9,12 +9,12 @@ import pw.react.backend.reactbackend.Exceptions.NotFoundException;
 import pw.react.backend.reactbackend.MyEntityClass.userEntity;
 import pw.react.backend.reactbackend.MyRepository.userRepository;
 
+import static org.assertj.core.api.BDDAssertions.then;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
-
 
 @RunWith(MockitoJUnitRunner.Silent.class)
 public class MyServiceTest {
@@ -48,7 +48,7 @@ public class MyServiceTest {
         userEntity user = new userEntity("login", "firstname", "lastname", "date", "active");
 
         given(repository.findByLogin("login")).willReturn(user);
-        given(service.checkUser(user.getLogin(),0)).willReturn(user);
+        then(service.checkUser(user.getLogin(),0)).isEqualTo(user);
     }
 
 }
